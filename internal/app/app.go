@@ -106,7 +106,7 @@ func LoadRoutes(r *gin.Engine) {
 							return
 						}
 						if value.Action == "buzz" {
-							err = notifySingle(bot, resp.Data.User.EnterpriseEmail)
+							err = notifySingle(bot, resp.Data.User.EnterpriseEmail, openID)
 							if err != nil {
 								log.Println(err)
 							}

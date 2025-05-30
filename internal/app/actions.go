@@ -64,11 +64,11 @@ func buildCard(chatID string, users ...string) lark.OutcomingMessage {
 	return msg
 }
 
-func notifySingle(bot *lark.Bot, user string) error {
+func notifySingle(bot *lark.Bot, email, openID string) error {
 	b := lark.NewCardBuilder()
 	card := b.Card(
 		b.Div(
-			b.Field(b.Text(fmt.Sprintf("<at email=\"%s\"></at>", user)).LarkMd()),
+			b.Field(b.Text(fmt.Sprintf("<at email=\"%s\"></at>", email)).LarkMd()),
 		),
 		b.Hr(),
 		b.Action(
@@ -105,8 +105,16 @@ func notifySingle(bot *lark.Bot, user string) error {
 		log.Println(resp.Code, resp.Msg)
 		return errors.New(resp.Msg)
 	}
-	bot.WithUserIDType(lark.UIDEmail)
-	_, _ = bot.BuzzMessage(lark.BuzzTypePhone, resp.Data.MessageID, user)
+
+	// buzz
+	bot.WithUserIDType(lark.UIDOpenID)
+	buzzResp, err := bot.BuzzMessage(lark.BuzzTypePhone, resp.Data.MessageID, openID)
+	if err != nil {
+		log.Println(err)
+	}
+	if buzzResp.Code != 0 {
+		log.Println(buzzResp.Code, buzzResp.Msg)
+	}
 
 	return nil
 }
