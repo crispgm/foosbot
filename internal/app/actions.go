@@ -86,7 +86,7 @@ func notifySingle(bot *lark.Bot, email, openID string) error {
 			b.Button(b.Text("签到")).Value(map[string]interface{}{"action": "已到达现场"}),
 		),
 		b.Hr(),
-		b.Div(b.Field(b.Text("加急"))),
+		b.Div(b.Field(b.Text("电话加急"))),
 		b.Action(
 			b.SelectMenu().SelectPerson().Value(map[string]interface{}{"action": "buzz_phone"}).Confirm("确认", "确认进行电话加急"),
 		),
@@ -108,12 +108,14 @@ func notifySingle(bot *lark.Bot, email, openID string) error {
 
 	// buzz
 	bot.WithUserIDType(lark.UIDOpenID)
-	buzzResp, err := bot.BuzzMessage(lark.BuzzTypePhone, resp.Data.MessageID, openID)
+	buzzResp, err := bot.BuzzMessage(lark.BuzzTypeInApp, resp.Data.MessageID, openID)
 	if err != nil {
 		log.Println(err)
+		return err
 	}
 	if buzzResp.Code != 0 {
 		log.Println(buzzResp.Code, buzzResp.Msg)
+		return errors.New(resp.Msg)
 	}
 
 	return nil
