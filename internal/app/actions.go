@@ -163,7 +163,7 @@ func replyToAction(ctx context.Context, bot *lark.Bot, openID, msgID, action str
 	name := userResp.Data.User.Name
 
 	msgText := fmt.Sprintf("%s: %s", name, action)
-	if strings.HasPrefix(action, "+1") || strings.HasPrefix(action, "签到") {
+	if strings.HasPrefix(action, "+1") || strings.HasPrefix(action, "已到达现场") {
 		msgText = fmt.Sprintf("%s: %s\n随机序号: %d", name, action, rand.Int()%100)
 	}
 	msg := lark.
@@ -183,5 +183,3 @@ func replyToAction(ctx context.Context, bot *lark.Bot, openID, msgID, action str
 
 	return nil
 }
-
-// Buzz!
