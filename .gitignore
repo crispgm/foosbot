@@ -23,3 +23,8 @@ go.work
 *.env.*
 .DS_Store
 .vercel
+
+functions/
+
+# Local Netlify folder
+.netlify

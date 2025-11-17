@@ -24,7 +24,7 @@ func LoadRoutes(r *gin.Engine) {
 
 	mw := larkgin.NewLarkMiddleware()
 
-	g := r.Group("/lark")
+	g := r.Group("/.netlify/functions/foosbot/lark")
 	{
 		g.Use(mw.LarkChallengeHandler())
 

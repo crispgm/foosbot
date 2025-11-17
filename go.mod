@@ -1,8 +1,10 @@
 module github.com/crispgm/foosbot
 
-go 1.24
+go 1.25
 
 require (
+	github.com/aws/aws-lambda-go v1.50.0
+	github.com/awslabs/aws-lambda-go-api-proxy v0.16.2
 	github.com/gin-gonic/gin v1.10.1
 	github.com/go-lark/lark-gin v1.3.1
 	github.com/go-lark/lark/v2 v2.0.0-beta.3
