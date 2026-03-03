@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"math/rand"
+	"math/rand/v2"
 	"strings"
 
 	"github.com/go-lark/lark/v2"
@@ -164,7 +164,7 @@ func replyToAction(ctx context.Context, bot *lark.Bot, openID, msgID, action str
 
 	msgText := fmt.Sprintf("%s: %s", name, action)
 	if strings.HasPrefix(action, "+1") || strings.HasPrefix(action, "已到达现场") {
-		msgText = fmt.Sprintf("%s: %s\n随机序号: %d", name, action, rand.Int()%100)
+		msgText = fmt.Sprintf("%s: %s\n随机序号: %d", name, action, rand.IntN(100))
 	}
 	msg := lark.
 		NewMsgBuffer(lark.MsgText).

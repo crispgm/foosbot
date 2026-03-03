@@ -1,6 +1,6 @@
 package app
 
-import "math/rand"
+import "math/rand/v2"
 
 func chickenSoup() string {
 	var soups = []string{
@@ -17,5 +17,5 @@ func chickenSoup() string {
 		"Everybody has talent, but ability takes hard work. -- Michael Jordan",
 	}
 
-	return soups[rand.Intn(len(soups))]
+	return soups[rand.IntN(len(soups))]
 }
