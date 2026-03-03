@@ -23,6 +23,7 @@ func LoadRoutes(r *gin.Engine) {
 	bot := newBot()
 
 	mw := larkgin.NewLarkMiddleware()
+	mw.WithTokenVerification(def.AppVerificationToken)
 
 	g := r.Group("/.netlify/functions/foosbot/lark")
 	{
@@ -35,7 +36,6 @@ func LoadRoutes(r *gin.Engine) {
 		eventGroup := g.Group("/event")
 		{
 			eventGroup.Use(mw.LarkEventHandler())
-			mw.WithTokenVerification(def.AppVerificationToken)
 			eventGroup.POST("/callback", func(c *gin.Context) {
 				if event, ok := mw.GetEvent(c); ok {
 					switch event.Header.EventType {
